@@ -100,33 +100,48 @@ let  [ roundValue, setRoundValue]= useState(1)
       localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
     }
   };
-
-
   const handleWinning = (team) => {
     const usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
-   
-  
     let msgWinner = '';
-    if (usuarioLogado.team === 'TeamTwo' && team.teamWinner === 2 ) {
+    const teamWinner = team.winner ===2?'TeamTwo':'TeamOne'
+    if (usuarioLogado.team ===teamWinner) {
+        dealCards(roomId);
       
-      dealCards(roomId);
-      msgWinner = team.msg === "ESCAPE" ? 'O ADVERSÁRIO FUGIU DO TRUCO E SEU TIME GANHOU 1 PONTO' : 'SEU TIME GANHOU A RODADA';
-    } else if (usuarioLogado.team === 'TeamOne' && team.teamWinner === 1 ) {
-      dealCards(roomId);
-      msgWinner = team.msg === "ESCAPE" ? 'O ADVERSÁRIO FUGIU DO TRUCO E SEU TIME GANHOU 1 PONTO' : 'SEU TIME GANHOU A RODADA';
-    } else {
-      dealCards(roomId);
-      msgWinner = team.msg === "ESCAPE" ? 'SEU TIME FUGIU DO TRUCO E O ADVERSÁRIO GANHOU 1 PONTO' : 'SEU TIME PERDEU A RODADA';
+        
+        if(team.msg ==="NORMAL"){
+          msgWinner = usuarioLogado.team === teamWinner ? 'SEU TIME GANHOU A RODADA' : 'SEU TIME PERDEU A RODADA';
+        
+        }
+
+        if(team.msg ==="ESCAPE"){
+          msgWinner = usuarioLogado.team === teamWinner ? 'O ADVERSÁRIO FUGIU DO TRUCO E SEU TIME GANHOU 1 PONTO' : 'SEU TIME FUGIU DO TRUCO E VOCE PERDEU 1 PONTO';
+          
+        }
+       
+    } else{
+
+      
+      if(team.msg ==="NORMAL"){
+        msgWinner = usuarioLogado.team === teamWinner ? 'SEU TIME GANHOU A RODADA' : 'SEU TIME PERDEU A RODADA';
+       
+        
+      }
+
+      if(team.msg ==="ESCAPE"){
+        msgWinner = usuarioLogado.team === teamWinner ? 'O ADVERSÁRIO FUGIU DO TRUCO E SEU TIME GANHOU 1 PONTO' : 'SEU TIME FUGIU DO TRUCO E VOCE PERDEU 1 PONTO';
+       
+      }
+
     }
-  
+
     setMsgWinnerRound(msgWinner);
-  
+
     fetchRoomData();
-  
+
     setTimeout(() => {
-      setMsgWinnerRound('');
+        setMsgWinnerRound('');
     }, 3000);
-  };
+};
   
   
 
@@ -361,7 +376,9 @@ let  [ roundValue, setRoundValue]= useState(1)
         <DivTable>
       
           {showAlert?
-           <><AlertCardWinning msg={msg} 
+           <><AlertCardWinning 
+           roomId={roomId}
+           msg={msg} 
            handleClick={handleCloseAlert}
            points = {points}
             ></AlertCardWinning></>:''}

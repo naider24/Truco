@@ -22,12 +22,7 @@ function AlertTruco({ roomId, valueRound, setShowAlert, setAnswerAwaiting, fetch
                     console.log('valor do round atualizado com sucesso', response.data);
 
                     socket.emit('acceptTruco', { roomId })
-                    let usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"))
-                    usuarioLogado.trucoInProgress = ''
-                    localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado))
-
-
-
+                 
 
                 })
                 .catch((error) => {
@@ -48,9 +43,7 @@ function AlertTruco({ roomId, valueRound, setShowAlert, setAnswerAwaiting, fetch
 
                     console.log(updatedValueRound)
                     socket.emit('acceptTruco', { roomId })
-                    let usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"))
-                    usuarioLogado.trucoInProgress = ''
-                    localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado))
+                  
 
                 })
                 .catch((error) => {
@@ -66,6 +59,7 @@ function AlertTruco({ roomId, valueRound, setShowAlert, setAnswerAwaiting, fetch
         let usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
         socket.emit('rejectTruco', { roomId, team: usuarioLogado.team, usuarioLogado: usuarioLogado })
         setShowAlert(false)
+        
 
     }
     return (<>

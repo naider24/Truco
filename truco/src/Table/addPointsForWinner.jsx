@@ -16,7 +16,7 @@ const addPointsToWinner = async (points ,msg, roomId) => {
   
    
       if(teamOneTurnsWin >=2 || teamTwoTurnsWin >= 2){
-        if(teamOneTurnsWin >=2){
+        if(teamOneTurnsWin ===2){
              
     setTimeout(() => {
       const updatedPoints = Number(data.points.TeamOne[0].points) +points;
@@ -41,7 +41,7 @@ const addPointsToWinner = async (points ,msg, roomId) => {
           
         }
 
-        if(teamTwoTurnsWin >=2){
+        if(teamTwoTurnsWin ===2){
 
           setTimeout(() => {
             const updatedPoints = Number(data.points.TeamTwo[0].points) +points;

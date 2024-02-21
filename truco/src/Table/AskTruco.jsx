@@ -11,16 +11,13 @@ function AskTruco({roomId, turnsTeamOne, turnsTeamTwo, valueRound, fetchRoomdata
     const [alert,setShowAlert]= useState(false)
 
     const [answerAwaiting, setAnswerAwaiting] = useState()
-    let usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"))
+  
+    let usuario= JSON.parse(localStorage.getItem("usuarioLogado"))
+    const[usuarioLogado, setUsarioLogado] = useState(usuario)
     useEffect(()=>{
 
 
-        const cleanupPreviousEvents = () => {
-            socket.off('RejectTruco');
-            socket.off('AcceptTruco');
-        
-            
-          };
+      
         socket.on('Truco',(nextPosition)=>{
 
           
@@ -29,11 +26,12 @@ function AskTruco({roomId, turnsTeamOne, turnsTeamTwo, valueRound, fetchRoomdata
              
                 usuarioLogado.trucoInProgress = 'request'
                 localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado))
+                setUsarioLogado(usuarioLogado)
              }
              if(usuarioLogado.position !== nextPosition){
                 usuarioLogado.trucoInProgress = 'awaitingAnswer'
                 localStorage.setItem('usuarioLogado', JSON.stringify(usuarioLogado))
-              
+                setUsarioLogado(usuarioLogado)
              
              }
         })
@@ -49,6 +47,7 @@ function AskTruco({roomId, turnsTeamOne, turnsTeamTwo, valueRound, fetchRoomdata
             let usuario = JSON.parse(localStorage.getItem("usuarioLogado"))
             usuario.trucoInProgress = ''
             localStorage.setItem('usuarioLogado', JSON.stringify(usuario))
+            setUsarioLogado(usuario)
         })
 
         socket.on('AcceptTruco',(data)=>{
@@ -58,10 +57,10 @@ function AskTruco({roomId, turnsTeamOne, turnsTeamTwo, valueRound, fetchRoomdata
             let usuario = JSON.parse(localStorage.getItem("usuarioLogado"))
             usuario.trucoInProgress = ''
             localStorage.setItem('usuarioLogado', JSON.stringify(usuario))
-           
+            setUsarioLogado(usuario)
          })
 
-         return(cleanupPreviousEvents)
+        
     },[])
 
     function HandleClick (){
@@ -94,7 +93,7 @@ function AskTruco({roomId, turnsTeamOne, turnsTeamTwo, valueRound, fetchRoomdata
             
              {
             usuarioLogado.trucoInProgress ==='request'? <Overlay>
-                 <div onClick={HandleClick}></div>
+                
                  <AlertTruco
              
                      roomId={roomId}
@@ -106,7 +105,7 @@ function AskTruco({roomId, turnsTeamOne, turnsTeamTwo, valueRound, fetchRoomdata
              </Overlay> :''
          }
          { usuarioLogado.trucoInProgress ==='awaitingAnswer' ? <Overlay>
-         <div onClick={HandleClick}>perta</div>
+   
                  <TeamWinner>um truco foi pedido aguarde a resposta</TeamWinner>
              </Overlay> :''
 

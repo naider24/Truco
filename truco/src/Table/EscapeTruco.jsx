@@ -22,7 +22,7 @@ const EscapeTruco = async (roomId, team, usuarioLogado) => {
                   })
                   .then((response) => {
                     console.log('Rounds resetados com sucesso:', response.data);
-                  socket.emit('winningRound',{roomId,teamWinner:1,position:usuarioLogado.position, id:usuarioLogado.idv4, msg:'ESCAPE'})
+                  socket.emit('winningRound',{roomId,teamWinner:2,position:usuarioLogado.position, id:usuarioLogado.idv4, msg:'ESCAPE'})
                     
                   
                   })
@@ -47,11 +47,8 @@ const EscapeTruco = async (roomId, team, usuarioLogado) => {
                       value:1,
                     })
                     .then((response) => {
-                      console.log('Rounds resetados com sucesso:', response.data);
-                  
-                        socket.emit('winningRound',{roomId,teamWinner:2,position:usuarioLogado.position, id:usuarioLogado.idv4, msg:'ESCAPE'})
-                    
-                 
+                      console.log('Rounds resetados com sucesso:', response.data);                 
+                        socket.emit('winningRound',{roomId,teamWinner:1,position:usuarioLogado.position, id:usuarioLogado.idv4, msg:'ESCAPE'})       
                     })
                     .catch((error) => {
                       console.error('Erro ao resetar rounds:', error);
