@@ -8,22 +8,7 @@ const AlertCardWinning = ({ msg, handleClick, roomId }) => {
   const [teamTwoTurns, setTeamTwoTurns] = useState(null);
   let usuarioLogado = JSON.parse(localStorage.getItem("usuarioLogado"));
 
-  useEffect(() => {
-    const fetchTurnsData = async (roomId) => {
-      try {
-        const response = await axios.get(`http://localhost:3000/api/rooms?roomId=${roomId}`);
-        const roomData = response.data;
-        setTeamOneTurns(roomData.points.TeamOne[0].turnsWin);
-        setTeamTwoTurns(roomData.points.TeamTwo[0].turnsWin);
-      } catch (error) {
-        console.error('Erro ao buscar os dados dos turnos:', error);
-        throw error;
-      }
-    };
-
-    fetchTurnsData(roomId);
-  }, []);
-
+ 
  
   if (msg && msg.newCard.player === usuarioLogado.name) {
     msg.newCard.player = 'você';
@@ -33,11 +18,7 @@ const AlertCardWinning = ({ msg, handleClick, roomId }) => {
 
   return (
     <>
-    {teamOneTurns >=2 || teamTwoTurns >=2? 
-    ""
-       
-
-    :   <>
+     <>
     <Overlay>
           
           <DivMain>
@@ -56,7 +37,7 @@ const AlertCardWinning = ({ msg, handleClick, roomId }) => {
                <CloseAlert onClick={handleClick}>Ok</CloseAlert>
            </DivMain >
            </Overlay>
-    </>}
+    </>
     </>
   );
 };

@@ -5,7 +5,7 @@ import socketService from "../../service/socketService";
  function GetCards ({usuario ,handleClick}) {
 
   const [cards, setCards] = useState([]);
-  let player = JSON.parse(localStorage.getItem("usuarioLogado"));
+
   
   useEffect(() => {
     
@@ -15,14 +15,14 @@ import socketService from "../../service/socketService";
 
     const player = JSON.parse(localStorage.getItem('usuarioLogado'));
     
-    if (player && player.cards && player.cards.length > 0) {
+    if (player) {
       setCards(player.cards);
       
     }
     
     socketService.getSocket().on('distributeCards', (distributedCards) => {
       const player = JSON.parse(localStorage.getItem('usuarioLogado'));
-     if (player && player.cards && player.cards.length > 0) {
+
       
       setCards(player.cards);
      
@@ -30,7 +30,7 @@ import socketService from "../../service/socketService";
       
     }
 
-    });
+    );
 
     
     socketService.getSocket().on('playedCard',(playedCard)=>{

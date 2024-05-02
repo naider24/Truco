@@ -198,7 +198,7 @@ const roomController = {
       );
 
       res.status(200).json({ room, msg: 'Pontos e rodadas vencidas atualizados com sucesso.' });
-      console.log('cai aki')
+     
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Erro ao atualizar os pontos e rodadas vencidas.' });

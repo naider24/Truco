@@ -58,9 +58,9 @@ io.on('connection', (socket) => {
     if (!cardsDistributed) {
       const startingIndex = Math.floor(Math.random() * distributedCards.length);
       const startingPosition = distributedCards[startingIndex].position;
-      console.log(`posição que vai começar ${startingPosition}`);
+
       io.in(roomId).emit('distributeCards', { startingPosition, distributedCards });
-      cardsDistributed = true; // Definir como true após emitir o evento
+      cardsDistributed = true; 
     }
   });
 

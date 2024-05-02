@@ -54,7 +54,7 @@ function PlayerRegistration() {
       const room = roomResponse.data;
 
       const selectedTeam = team === 'TeamOne' ? room.teams.TeamOne : room.teams.TeamTwo;
-      const checkedId =  selectedTeam.every(player => player.player !== usuario.id);
+      const checkedId =  selectedTeam.every(player => player.player !== usuario.idv4);
 
       if (room) {
        
@@ -98,14 +98,14 @@ function PlayerRegistration() {
         const { TeamOne, TeamTwo } = room.teams;
         
     
-        const playerIndexTeamOne = TeamOne.findIndex(player => player.player === usuario.id);
+        const playerIndexTeamOne = TeamOne.findIndex(player => player.player === usuario.idv4);
         if (playerIndexTeamOne !== -1) {
           TeamOne[playerIndexTeamOne].player = 'não selecionado';
           TeamOne[playerIndexTeamOne].name = '';
         }
     
 
-        const playerIndexTeamTwo = TeamTwo.findIndex(player => player.player === usuario.id);
+        const playerIndexTeamTwo = TeamTwo.findIndex(player => player.player === usuario.idv4);
         if (playerIndexTeamTwo !== -1) {
           TeamTwo[playerIndexTeamTwo].player = 'não selecionado';
           TeamTwo[playerIndexTeamTwo].name = '';
